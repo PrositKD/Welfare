@@ -1,0 +1,37 @@
+/* Basic Image Preview Start */
+.basic-image-upload {
+    position: relative;
+    width: 100%;
+    height: 200px;
+}
+
+.basic-image-upload .image-edit {
+    position: absolute;
+    right: 0;
+    z-index: 1;
+    top: 0;
+}
+
+.basic-image-upload .image-edit input {
+    display: none;
+}
+
+.basic-image-upload .image-preview {
+    width: 100%;
+    height: 200px;
+    position: relative;
+    border-radius: 100%;
+}
+
+.basic-image-upload .image-preview>div {
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.image-edit label:hover {
+    cursor: pointer;
+}
+/* Basic Image Preview End */
