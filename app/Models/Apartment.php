@@ -24,5 +24,6 @@ class Apartment extends Model
     {
         return $this->belongsTo(ApartmentCategory::class, 'category_id'); // 'category_id' is the foreign key
     }
+    //test
 
 }
