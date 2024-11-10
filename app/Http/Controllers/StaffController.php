@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StaffStoreRequest;
 use App\Http\Requests\StaffUpdateRequest;
+use App\Models\Road;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -29,7 +30,7 @@ class StaffController extends Controller
      */
     public function create()
     {
-        $roads = range(1, 20);
+        $roads = Road::all();
         return view('pages.staff.create', compact('roads'));
     }
 
@@ -54,15 +55,17 @@ class StaffController extends Controller
      */
     public function edit(string $id)
     {
-        $staff = User::find($id);
-        return view('pages.staff.edit', compact('staff'));
+        $staff = User::with('roads.road')->find($id);
+        $roads = Road::all();
+        //dd($staff->roads);
+        return view('pages.staff.edit', compact('staff', 'roads'));
     }
 
     /**
      * Update the specified resource in storage.
      */
     public function update(StaffUpdateRequest $request, string $id)
-    {
+    {//dd($request);
         return $request->update($id);
     }
 

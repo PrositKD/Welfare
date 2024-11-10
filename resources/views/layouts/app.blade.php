@@ -46,8 +46,18 @@
         <!--end::Footer-->
     </div>
 
+    
     @include('include.js')
     @stack('scripts')
+    
+    <script>
+		document.addEventListener("DOMContentLoaded", function() {
+			// Datatables Responsive
+			$("#datatables-reponsive").DataTable({
+				responsive: true
+			});
+		});
+	</script>
 </div>
 
 </html>

@@ -16,4 +16,9 @@ class RoadStaff extends Model
     {
         return $this->belongsTo(User::class, 'staff_id');
     }
+    public function road()
+    {
+        return $this->belongsTo(Road::class, 'road_id');
+    }
+    
 }

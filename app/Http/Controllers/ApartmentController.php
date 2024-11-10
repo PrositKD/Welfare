@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Apartment;
+use App\Models\ApartmentCategory;
 use App\Models\Building;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -11,22 +12,26 @@ class ApartmentController extends Controller
 {
     public function index()
     {
-        $apartments = Apartment::with('building')
-        ->orderBy('apartment_number')
+        $apartments = Apartment::with('building', 'category')  // Eager load both 'building' and 'category'
+        ->orderBy('apartment_number') // Order by apartment number
         ->get();
-        return view('pages.apartment.index', compact('apartments'));
+    
+    return view('pages.apartment.index', compact('apartments'));
+    
     }
 
     public function create()
     {
         $buildings = Building::where('status', 1)->get();
-        return view('pages.apartment.create', compact('buildings'));
+        $categorys = ApartmentCategory::where('status', 1)->get();
+        return view('pages.apartment.create', compact('buildings','categorys'));
     }
 
     public function store(Request $request)
-    {
+    {//dd('category_id');
         $request->validate([
             'building_id' => 'required|exists:buildings,id',
+            'category_id' => 'required',
             'apartment_number' => [
                 'required',
                 'string',
@@ -50,13 +55,15 @@ class ApartmentController extends Controller
     {
         $buildings = Building::where('status', 1)->get();
         $apartment = Apartment::findOrFail($id);
-        return view('pages.apartment.edit', compact('apartment', 'buildings'));
+        $categorys = ApartmentCategory::where('status', 1)->get();
+        return view('pages.apartment.edit', compact('apartment', 'buildings','categorys'));
     }
 
     public function update(Request $request, $id)
     {
         $request->validate([
-            'building_id' => 'required',
+            'building_id' => 'required|exists:buildings,id',
+            'category_id' => 'required',
             'apartment_number' => 'required',
             'owner_name' => 'required',
             'mobile_no' => 'required',

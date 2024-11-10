@@ -23,7 +23,6 @@ class StaffStoreRequest extends FormRequest
             'password'           => 'required|confirmed|min:6',
             'profile_photo_path' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'roads' => 'required|array',
-            'roads.*' => 'integer|distinct|min:1|max:20',
         ];
     }
 
@@ -36,7 +35,7 @@ class StaffStoreRequest extends FormRequest
     {
         DB::beginTransaction();
         try {
-
+            // Create a new staff member
             $staff = new User();
             $staff->name = $this->name;
             $staff->email = $this->email;
@@ -44,31 +43,80 @@ class StaffStoreRequest extends FormRequest
             $staff->status = 'pending';
             $staff->password = Hash::make($this->password);
 
+            // Save profile photo
             $staff = $this->saveProfilePhoto($this, $staff);
-
             $staff->save();
 
-           // Assign roads to the staff member
-            foreach ($this->roads as $roadId) {
-                // Check if the road is already assigned to any staff
-                $existingRoad = RoadStaff::where('road_id', $roadId)->first();
+            // Get selected road IDs from the request
+            $selectedRoads = $this->roads; // Assuming this contains the selected road IDs
 
-                // If the road is not already assigned to anyone, create a new entry
-                if (!$existingRoad) {
-                    RoadStaff::create([
-                        'staff_id' => $staff->id,
-                        'road_id' => $roadId,
-                    ]);
+            // Initialize an array to hold existing road assignments
+            $existingRoads = [];
+
+            // Check for existing road assignments for the user
+            foreach ($selectedRoads as $roadId) {
+                
+                $roadAssignment = RoadStaff::where('road_id', $roadId)
+                    ->with('staff') 
+                    ->first();
+
+                if ($roadAssignment) {
+                    $existingRoads[] = [
+                        'road' => $roadAssignment->road->road_no . ($roadAssignment->road->block ? '/' . $roadAssignment->road->block : ''),
+                        'assigned_to' => $roadAssignment->staff->name,
+                    ];
                 }
             }
 
+            if (!empty($existingRoads)) {
+
+                DB::rollback();
+            
+                // Initialize an array to hold road assignments by staff
+                $roadAssignments = [];
+            
+                foreach ($existingRoads as $existingRoad) {
+                    // Group roads by assigned staff's name
+                    $roadAssignments[$existingRoad['assigned_to']][] = $existingRoad['road'];
+                }
+            
+                // Prepare error messages
+                $errorMessages = [];
+                foreach ($roadAssignments as $staffName => $roads) {
+                    // Join the roads for this staff member
+                    $roadList = implode(', ', $roads);
+                    $errorMessages[] = $roadList . ' already assigned to ' . $staffName;
+                }
+            
+                // Combine all error messages into one
+                $errorMessage = implode('<br>', $errorMessages);
+                
+                // return redirect()->back()->with('error', $errorMessage);
+                return redirect()->back()
+                    ->withErrors(['roads' => $errorMessage]) // Pass the error messages
+                    ->withInput();
+            }
+           
+            // Store new road assignments
+            foreach ($selectedRoads as $roadId) {
+                RoadStaff::create([
+                    'staff_id' => $staff->id,
+                    'road_id' => $roadId,
+                ]);
+            }
+
+            // Send notification
             $staff->notify(new EmployeeCreateNotification($staff));
             DB::commit();
+            
             return redirect()->route('staff.index')->with('success', 'Staff Created Successfully');
         } catch (\Exception $e) {
             DB::rollback();
-            return $e;
-            return redirect()->back()->with('fail', __('language.data_save_error'));
+            return redirect()->back()->with('fail', __('language.data_save_error') . ' ' . $e->getMessage());
         }
     }
+
+
+
+
 }

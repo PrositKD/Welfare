@@ -36,8 +36,8 @@
                     <tr>
                         <th>Name</th>
                         <th class="d-none d-xl-table-cell">Road</th>
-                        <th class="d-none d-xl-table-cell">Total Appertment</th>
-                        <th class="d-none d-xl-table-cell">Owner Name</th>
+                        {{-- <th class="d-none d-xl-table-cell">Total Appertment</th> --}}
+                        <th class="d-none d-xl-table-cell">Contact Person</th>
                         <th class="d-none d-xl-table-cell">Mobile No</th>
                         <th>Status</th>
                         <th class="d-none d-md-table-cell">Action</th>
@@ -47,9 +47,9 @@
                     @foreach ($buildings as $building)
                     <tr>
                         <td>{{$building->name}}</td>
-                        <td class="d-none d-xl-table-cell">{{ucwords($building->road)}}</td>
-                        <td class="d-none d-xl-table-cell">{{$building->total_apartment}}</td>
-                        <td class="d-none d-xl-table-cell">{{$building->owner_name}}</td>
+                        <td class="d-none d-xl-table-cell">{{$building->road?->road_no}}{{ $building->road?->road_no ? '/' . $building->road?->block : '' }}</td>
+                        {{-- <td class="d-none d-xl-table-cell">{{$building->total_apartment}}</td> --}}
+                        <td class="d-none d-xl-table-cell">{{$building->contact_person}}</td>
                         <td class="d-none d-xl-table-cell">{{$building->mobile_no}}</td>
                         <td>
                             @if($building->status == 1)

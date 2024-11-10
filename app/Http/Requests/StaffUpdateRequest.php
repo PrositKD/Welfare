@@ -21,7 +21,7 @@ class StaffUpdateRequest extends FormRequest
             'password'           => 'nullable|confirmed|min:6',
             'profile_photo_path' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'roads'              => 'required|array',
-            'roads.*'           => 'integer|distinct|min:1|max:20',
+            'roads.*'           => 'integer|distinct|min:1|max:200',
         ];
     }
 
@@ -37,8 +37,6 @@ class StaffUpdateRequest extends FormRequest
             $staff = User::find($id);
             $staff->name = $this->name;
             $staff->email = $this->email;
-            $staff->type = $this->type;
-
             if ($this->filled('password')) {
                 $staff->password = Hash::make($this->password);
             }

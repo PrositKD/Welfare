@@ -25,7 +25,6 @@
     @include('include.validation-message')
     <!--end::Validation Message-->
 
-
     <div class="card">
         <form class="needs-validation" action="{{ route('apartment.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -39,17 +38,26 @@
                         @endforeach
                     </select>
                 </div>
+                <div class="mb-3">
+                    <label class="form-label">Apartment Category<span class="text-danger">*</span></label>
+                    <select class="form-select" name="category_id">
+                        <option value="">Select Category</option>
+                        @foreach ($categorys as $category)
+                            <option value="{{ $category->id }}" @selected(old('category_id') == $category->id)>{{ ucwords($category->name) }}</option>
+                        @endforeach
+                    </select>
+                </div>
                 <div class="mb-2">
                     <label for="apartment_number" class="form-label">Apartment No<span class="text-danger">*</span></label>
-                    <input type="text" name="apartment_number" id="apartment_number" class="form-control" placeholder="Apartment No" required value="{{old('apartment_number')}}">
+                    <input type="text" name="apartment_number" id="apartment_number" class="form-control @error('apartment_number') is-invalid @enderror" placeholder="Apartment No" required value="{{ old('apartment_number') }}">
                 </div>
                 <div class="mb-2">
                     <label for="owner_name" class="form-label">Owner Name<span class="text-danger">*</span></label>
-                    <input type="text" name="owner_name" id="owner_name" class="form-control" placeholder="Owner Name" required value="{{old('owner_name')}}">
+                    <input type="text" name="owner_name" id="owner_name" class="form-control" placeholder="Owner Name" required value="{{ old('owner_name') }}">
                 </div>
                 <div class="mb-2">
                     <label for="mobile_no" class="form-label">Mobile No<span class="text-danger">*</span></label>
-                    <input type="text" id="mobile_no" class="form-control" placeholder="Mobile No" name="mobile_no" required value="{{old('mobile_no')}}">
+                    <input type="text" id="mobile_no" class="form-control" placeholder="Mobile No" name="mobile_no" required value="{{ old('mobile_no') }}">
                 </div>
             </div>
 
@@ -58,4 +66,5 @@
             </div>
         </form>
     </div>
+
 @endsection

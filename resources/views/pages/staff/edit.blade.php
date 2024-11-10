@@ -37,7 +37,21 @@
                 </div>
                 <div class="mb-2">
                     <label for="email" class="form-label">Email Address<span class="text-danger">*</span></label>
-                    <input type="text" id="email" class="form-control" placeholder="Staff email" name="email" required value="{{$staff->email}}">
+                    <input type="text" id="email" class="form-control @error('email') is-invalid @enderror" placeholder="Staff email" name="email" required value="{{$staff->email}}">
+                </div>
+                <div class="mb-2">
+                    <label for="road" class="form-label">Road No<span class="text-danger">*</span></label>
+                    <select class="form-select basic-single" name="roads[]" multiple="multiple" required>
+                        <option value="">Select One</option>
+                       
+                        @foreach ($roads as $road)
+                        <option value="{{ $road->id }}" 
+                            @if(in_array($road->id, $staff->roads->pluck('road_id')->toArray())) selected @endif>
+                            {{ $road->road_no }}{{ $road->block ? '/' . $road->block : '' }}
+                        </option>
+                    @endforeach
+                    
+                    </select>
                 </div>
                 <div class="mb-2">
                     <label for="password" class="form-label">Profile Picture</label>

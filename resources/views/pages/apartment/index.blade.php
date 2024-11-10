@@ -12,7 +12,7 @@
                 <h1 class="h3 d-inline align-middle">Apartment Section</h1>
             </div>
             <div class="col-6 text-end">
-                <a href="{{route('apartment.create')}}" class="btn btn-success">
+                <a href="{{ route('apartment.create') }}" class="btn btn-success">
                     <i data-feather="plus-circle"></i> Add Apartment
                 </a>
             </div>
@@ -38,6 +38,7 @@
                         <th class="d-none d-xl-table-cell">Apartment No</th>
                         <th class="d-none d-xl-table-cell">Owner Name</th>
                         <th class="d-none d-xl-table-cell">Mobile No</th>
+                        <th>Category</th> <!-- Added Category column -->
                         <th>Created At</th>
                         <th>Status</th>
                         <th class="d-none d-md-table-cell">Action</th>
@@ -50,6 +51,7 @@
                             <td class="d-none d-xl-table-cell">{{ $apartment->apartment_number }}</td>
                             <td class="d-none d-xl-table-cell">{{ ucwords($apartment->owner_name) }}</td>
                             <td class="d-none d-xl-table-cell">{{ $apartment->mobile_no }}</td>
+                            <td>{{ $apartment->category ? ucwords($apartment->category->name) : 'N/A' }}</td> <!-- Display category name -->
                             <td class="d-none d-md-table-cell">{{ $apartment->created_at->format('Y-m-d') }}</td>
                             <td>
                                 @if($apartment->status == 1)
@@ -80,5 +82,3 @@
     <!--end::Card-->
    
 @endsection
-
-

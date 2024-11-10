@@ -37,12 +37,16 @@
                 </div>
                 <div class="mb-2">
                     <label for="road" class="form-label">Road No<span class="text-danger">*</span></label>
-                    <input type="number" id="road" class="form-control" placeholder="Building road" name="road"
-                        required value="{{old('road')}}">
+                    <select class="form-select basic-single" name="road_id" required>
+                        <option value="">Select One</option>
+                        @foreach ($roads as $road)
+                            <option value="{{ $road->id }}">{{ $road->road_no }}{{ $road->block ? '/' . $road->block : '' }}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="mb-2">
-                    <label for="owner_name" class="form-label">Owner Name<span class="text-danger">*</span></label>
-                    <input type="text" name="owner_name" id="owner_name" class="form-control" placeholder="Owner Name" required value="{{old('owner_name')}}">
+                    <label for="contact_person" class="form-label">Contact Person Name<span class="text-danger">*</span></label>
+                    <input type="text" name="contact_person" id="contact_person" class="form-control" placeholder="Contact Person Name" required value="{{old('contact_person')}}">
                 </div>
                 <div class="mb-2">
                     <label for="mobile_no" class="form-label">Mobile No<span class="text-danger">*</span></label>

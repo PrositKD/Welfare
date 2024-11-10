@@ -6,6 +6,7 @@
 
 <!--begin::Datatables-->
 <script src="{{asset('assets/plugins/datatables/datatables.js')}}"></script>
+{{-- <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script> --}}
 <!--end::Datatables-->
 
 <script src="{{asset('assets/plugins/select2/select2.min.js')}}"></script>
@@ -20,10 +21,10 @@
 
 
 
+
 <!--begin::Sweet Alert-->
 <script src="{{asset('assets/plugins/sweetalert2/sweetalert2.js')}}"></script>
 <!--end::Sweet Alert-->
-
 
 
 <!--begin::Custom-->

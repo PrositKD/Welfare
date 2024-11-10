@@ -3,46 +3,54 @@
 namespace App\Http\Controllers;
 
 use App\Models\Building;
+use App\Models\Road;
 use Illuminate\Http\Request;
 
 class BuildingController extends Controller
 {
     public function index()
     {
-        $buildings = Building::all();
+        $buildings = Building::with(['road'])->get();
         return view('pages.building.index', compact('buildings'));
     }
 
     public function create()
     {
-        return view('pages.building.create');
+        $roads = Road::all();
+        return view('pages.building.create', compact('roads'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'road' => 'required',
-            'owner_name' => 'required',
+            'road_id' => 'required',
+            'contact_person' => 'required',
             'mobile_no' => 'required',
         ]);
 
-        Building::create($request->all());
+        $building = new Building();
+        $building->name = $request->name;
+        $building->road_id = $request->road_id;
+        $building->contact_person = $request->contact_person;
+        $building->mobile_no = $request->mobile_no;
+        $building->save();
         return redirect()->route('building.index')->with('success', 'Building created successfully!');
     }
     
     public function edit(request $request, $id)
     {
         $building = Building::findOrFail($id);
-        return view('pages.building.edit', compact('building'));
+        $roads = Road::all();
+        return view('pages.building.edit', compact('building', 'roads'));
     }
 
     public function update(Request $request, $id)
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'road' => 'required|string|max:255',
-            'owner_name' => 'required',
+            'road_id' => 'required|string|max:255',
+            'contact_person' => 'required',
             'mobile_no' => 'required',
         ]);
 

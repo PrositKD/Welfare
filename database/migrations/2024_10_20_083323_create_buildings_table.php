@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('buildings', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('road');
+            $table->unsignedBigInteger('road_id');
             $table->integer('total_apartment');
-            $table->string('owner_name')->nullable();
+            $table->string('contact_person')->nullable();
             $table->string('mobile_no')->nullable();
             $table->boolean('status')->default(1);
             $table->timestamps();

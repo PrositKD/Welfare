@@ -19,6 +19,7 @@ class User extends Authenticatable
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
+   
 
     /**
      * The attributes that are mass assignable.
@@ -66,4 +67,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function roads()
+    {
+        return $this->hasMany(RoadStaff::class, 'staff_id');
+    }
+
 }

@@ -39,6 +39,15 @@
                         @endforeach
                     </select>
                 </div>
+                <div class="mb-3">
+                    <label class="form-label">Category<span class="text-danger">*</span></label>
+                    <select class="form-select" name="category_id" required>
+                        <option value="">Select One</option>
+                        @foreach ($categorys as $category)
+                            <option value="{{ $category->id }}" @selected($apartment->category_id == $category->id)>{{ ucwords($category->name) }}</option>
+                        @endforeach
+                    </select>
+                </div>
                 <div class="mb-2">
                     <label for="apartment_number" class="form-label">Apartment No<span class="text-danger">*</span></label>
                     <input type="text" name="apartment_number" id="apartment_number" class="form-control" placeholder="Apartment No" required value="{{$apartment->apartment_number}}">

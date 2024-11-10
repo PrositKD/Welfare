@@ -9,10 +9,16 @@ class Building extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'road', 'owner_name', 'mobile_no', 'status'];
+    protected $fillable = ['name', 'road_id', 'contact_person', 'mobile_no', 'status'];
 
     public function apartments()
     {
         return $this->hasMany(Apartment::class);
     }
+    public function road()
+    {
+        return $this->belongsTo(Road::class, 'road_id');
+    }
+
+
 }

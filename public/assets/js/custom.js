@@ -1,3 +1,10 @@
+$(document).ready(function() {
+    $('.basic-single').select2({
+        placeholder: "Select One",
+        allowClear: true
+    });
+});
+
 ("use strict");
 $(document).on("click", ".delete-confirm", function () {
     let url = $(this).data("route");
@@ -208,15 +215,11 @@ $(document).on("click", ".status-confirm", function () {
 $(document).ready(function() {
     $("#dataTable").DataTable({
         responsive: true,
-        pageLength: 20
+        pageLength: 25, 
+        lengthMenu: [[25, 50, 100, -1], [25, 50, 100, "All"]],
     });
 });
-$(document).ready(function() {
-    $('.basic-single').select2({
-        placeholder: "Select One",
-        allowClear: true
-    });
-});
+
 
 $(document).ready(function() {
     var start = moment();

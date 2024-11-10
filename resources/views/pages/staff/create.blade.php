@@ -34,20 +34,20 @@
                 <div class="mb-2">
                     <label for="name" class="form-label">Staff Name<span class="text-danger">*</span></label>
                     <input type="text" id="name" class="form-control" placeholder="Staff Name" name="name"
-                        required value="{{old('name')}}">
+                        required value="{{ old('name', $staff->name ?? '') }}">
                 </div>
                 <div class="mb-2">
                     <label for="email" class="form-label">Email Address<span class="text-danger">*</span></label>
-                    <input type="text" id="email" class="form-control" placeholder="Staff email" name="email"
-                        required value="{{old('email')}}">
+                    <input type="text" id="email" class="form-control @error('email') is-invalid @enderror" placeholder="Staff email" name="email"
+                        required value="{{ old('email', $staff->email ?? '') }}">
                 </div>
                 
-                <div class="mb-3">
-                    <label class="form-label">Road Assign<span class="text-danger">*</span></label>
-                    <select class="form-select basic-single" name="roads[]" multiple required>
+                <div class="mb-2">
+                    <label for="road" class="form-label">Road No<span class="text-danger">*</span></label>
+                    <select class="form-select basic-single" name="roads[]" multiple="multiple" required>
                         <option value="">Select One</option>
                         @foreach ($roads as $road)
-                            <option value="{{ $road }}">{{ $road }}</option>
+                            <option value="{{ $road->id }}">{{ $road->road_no }}{{ $road->block ? '/' . $road->block : '' }}</option>
                         @endforeach
                     </select>
                 </div>

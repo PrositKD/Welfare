@@ -27,6 +27,11 @@
                     <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Apartments</span>
                 </a>
             </li>
+            <li class="sidebar-item {{ request()->routeIs('apartment-category.index') || request()->routeIs('apartment-category.create') || request()->routeIs('apartment-category.edit') ? 'active' : '' }}">
+                <a class="sidebar-link" href="{{ route('apartment-category.index') }}">
+                    <i class="align-middle" data-feather="list"></i> <span class="align-middle">Apartments Category</span>
+                </a>
+            </li>
             @endif
 
             {{-- <li class="sidebar-item {{ request()->routeIs('leave_request.index') || request()->routeIs('leave_request.create') ||request()->routeIs('leave_request.edit') ? 'active' : '' }}">
@@ -38,12 +43,15 @@
 
         <div class="sidebar-cta">
             <div class="sidebar-cta-content">
-                <strong class="d-inline-block mb-2">Upgrade to Pro</strong>
-                <div class="mb-3 text-sm">
-                    Are you looking for more components? Check out our premium version.
-                </div>
+
                 <div class="d-grid">
-                    <a href="upgrade-to-pro.html" class="btn btn-primary">Upgrade to Pro</a>
+                    <a href="{{ route('logout') }}" class="btn btn-primary"
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <i class="align-middle me-1" data-feather="log-out"></i>Log out
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    </a>
                 </div>
             </div>
         </div>

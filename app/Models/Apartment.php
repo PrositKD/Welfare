@@ -9,7 +9,7 @@ class Apartment extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['building_id', 'apartment_number', 'owner_name', 'mobile_no', 'status'];
+    protected $fillable = ['building_id','category_id', 'apartment_number', 'owner_name', 'mobile_no', 'status'];
 
     public function building()
     {
@@ -19,4 +19,10 @@ class Apartment extends Model
     {
         return $this->hasMany(Payment::class);
     }
+    // Apartment.php
+    public function category()
+    {
+        return $this->belongsTo(ApartmentCategory::class, 'category_id'); // 'category_id' is the foreign key
+    }
+
 }
