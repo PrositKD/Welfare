@@ -4,9 +4,9 @@
 @section('content')
     <h1 class="h3 mb-3"><strong>Analytics</strong> Dashboard</h1>
 
-    {{-- @if(auth()->user()->type == 1)
+    @if(auth()->user()->type == "admin")
         <div class="row">
-            <div class="col-xl-6 col-xxl-5 d-flex">
+            {{-- <div class="col-xl-6 col-xxl-5 d-flex">
                 <div class="w-100">
                     <div class="row">
                         <div class="col-sm-6">
@@ -31,7 +31,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="card">
+                            {{-- <div class="card">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col mt-0">
@@ -51,9 +51,9 @@
                                         <span class="text-muted">Since last week</span>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
-                        <div class="col-sm-6">
+                        {{-- <div class="col-sm-6">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
@@ -97,13 +97,13 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                     
                 </div>
-            </div>
+            </div> --}}
 
-            <div class="col-xl-6 col-xxl-7">
+            {{-- <div class="col-xl-6 col-xxl-7">
                 <div class="card flex-fill w-100">
                     <div class="card-header">
 
@@ -115,10 +115,10 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
 
-        <div class="card flex-fill">
+        {{-- <div class="card flex-fill">
             <div class="card-header">
                 <h5 class="card-title mb-0">Latest Leave Request</h5>
             </div>
@@ -182,11 +182,11 @@
                     @endforeach
                 </tbody>
             </table>
-        </div>
+        </div> --}}
     @endif
 
     <!-- For User Wise Data -->
-    @if(auth()->user()->type == 2)
+    @if(auth()->user()->type == "user")
         <div class="row">
             <div class="col-12">
                 <div class="alert alert-success" role="alert">
@@ -198,7 +198,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        {{-- <div class="row">
             <div class="col-xl-6 col-xxl-5 d-flex">
                 <div class="w-100">
                     <div class="row">
@@ -312,8 +312,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-    @endif --}}
+        </div> --}}
+    @endif
 @endsection
 
 @push('scripts')

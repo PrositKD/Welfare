@@ -71,5 +71,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(RoadStaff::class, 'staff_id');
     }
-
+    public function roadstaf()
+    {
+        return $this->belongsToMany(Road::class, 'road_staff', 'staff_id', 'road_id');
+    }
 }

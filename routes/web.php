@@ -78,6 +78,25 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     });
     
 
-    Route::post('/employee/collect', [EmployeeController::class, 'collectPayment'])->name('employee.collectPayment');
+    //Route::post('/employee/collect', [EmployeeController::class, 'collectPayment'])->name('employee.collectPayment');
+// web.php
+Route::group(['prefix' => 'user', 'middleware' => 'auth', 'as' => 'user.'], function () {
+    Route::controller(EmployeeController::class)->group(function () {
+        // Collect Payment route (GET)
+        Route::get('/collect-payment', 'showCollectPaymentForm')->name('collect-payment');
+        
+        // Post route for submitting payment data
+        Route::post('/collect-payment', 'collectPayment')->name('submit-collect-payment');
+        
+        // Other routes
+        Route::get('/collection-report', 'collectionReport')->name('collection-report');
+        Route::get('/payment-history', 'paymentHistory')->name('payment-history');
+        
+        Route::get('/get-buildings-by-road','getBuildingsByRoad')->name('buildingsByRoad');
+        Route::get('/get-apartments-by-building',  'getApartmentsByBuilding')->name('getApartmentsByBuilding');
+
+    });
+});
+
 
 });

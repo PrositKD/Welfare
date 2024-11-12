@@ -19,6 +19,10 @@ class Building extends Model
     {
         return $this->belongsTo(Road::class, 'road_id');
     }
-
+    public function staff()
+    {
+        return $this->belongsTo(User::class, 'staff_id');
+    }
+    
 
 }

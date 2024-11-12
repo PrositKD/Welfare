@@ -33,7 +33,29 @@
                 </a>
             </li>
             @endif
-
+            @if(auth()->user()->type == "user")
+            <!-- Collection Report -->
+            <li class="sidebar-item {{ request()->routeIs('user.collection-report') ? 'active' : '' }}">
+                <a class="sidebar-link" href="{{ route('user.collection-report') }}">
+                    <i class="align-middle" data-feather="file-text"></i> <span class="align-middle">Collection Report</span>
+                </a>
+            </li>
+            
+            <!-- Payment History -->
+            <li class="sidebar-item {{ request()->routeIs('user.payment-history') ? 'active' : '' }}">
+                <a class="sidebar-link" href="{{ route('user.payment-history') }}">
+                    <i class="align-middle" data-feather="credit-card"></i> <span class="align-middle">Payment History</span>
+                </a>
+            </li>
+        
+            <!-- Collect Payment -->
+            <li class="sidebar-item {{ request()->routeIs('user.collect-payment') ? 'active' : '' }}">
+                <a class="sidebar-link" href="{{ route('user.collect-payment') }}">
+                    <i class="align-middle" data-feather="dollar-sign"></i> <span class="align-middle">Collect Payment</span>
+                </a>
+            </li>
+        @endif
+        
             {{-- <li class="sidebar-item {{ request()->routeIs('leave_request.index') || request()->routeIs('leave_request.create') ||request()->routeIs('leave_request.edit') ? 'active' : '' }}">
                 <a class="sidebar-link" href="{{route('leave_request.index')}}">
                     <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">Leave Request</span>
