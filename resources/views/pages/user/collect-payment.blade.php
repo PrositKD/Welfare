@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+    .select2-container {
+    width: 100% !important; /* Force full-width */
+}
+</style>
 <div class="container-fluid">
     <h1 class="mb-4 text-center">Collect Payment</h1>
 
@@ -15,8 +20,6 @@
         <input type="hidden" name="apartment_ids" id="selectedApartmentIds">
         <input type="hidden" name="amounts" id="selectedAmounts">
         <div class="row">
-            <!-- Select Month -->
-            <!-- Select Month -->
             <div class="col-md-6 col-sm-12 mb-3">
                 <div class="form-group">
                     <label for="month" class="form-label">Select Month</label>
@@ -81,10 +84,29 @@
         
         <!-- Submit Button -->
         <div class="text-center">
-            <button type="submit" id="submitPaymentButton" class="btn btn-primary mt-3" style="display: none;">Collect Payment</button>
+            <button type="submit" id="submitPaymentButton" class="btn btn-success mt-3" style="display: none;">Collect Payment</button>
         </div>
     </form>
 </div>
+
+<div class="modal fade" id="rentStatusModal" tabindex="-1" aria-labelledby="rentStatusModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="rentStatusModalLabel">Confirm Action</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to update the rent status for this apartment?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" id="confirmRentStatusUpdate">Yes, Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
 @endsection
 
 @section('scripts')

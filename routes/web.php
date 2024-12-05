@@ -94,6 +94,8 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth', 'as' => 'user.'], func
         
         Route::get('/get-buildings-by-road','getBuildingsByRoad')->name('buildingsByRoad');
         Route::get('/get-apartments-by-building',  'getApartmentsByBuilding')->name('getApartmentsByBuilding');
+        Route::post('/toggle-rent-status', 'toggleRentStatus')->name('toggleRentStatus');
+
 
     });
 });

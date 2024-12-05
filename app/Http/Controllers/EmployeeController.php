@@ -8,6 +8,7 @@ use App\Models\Building;
 use App\Models\MonthlyPayment;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EmployeeController extends Controller
 {
@@ -62,7 +63,15 @@ class EmployeeController extends Controller
         ]);
     }
     
-
+    public function toggleRentStatus(Request $request)
+    {
+        $apartment = Apartment::findOrFail($request->id);
+        $apartment->not_in_rent = !$apartment->not_in_rent;
+        $apartment->save();
+    
+        return response()->json(['success' => true]);
+    }
+    
     
  
 // public function collectPayment(Request $request)
@@ -144,7 +153,7 @@ public function collectPayment(Request $request)
             ->get();
 
         // Return the collection report view with the payments data
-        return view('employee.collection-report', compact('payments'));
+        return view('pages.user.collection-report', compact('payments'));
     }
 }
 

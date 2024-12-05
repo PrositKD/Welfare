@@ -22,7 +22,7 @@
                     <td>{{ $payment->apartment->name ?? 'N/A' }}</td> <!-- Display apartment name -->
                     <td>{{ $payment->employee->name ?? 'N/A' }}</td> <!-- Display employee name -->
                     <td>{{ $payment->amount }}</td>
-                    <td>{{ $payment->payment_date->format('Y-m-d H:i') }}</td> <!-- Format payment date -->
+                    {{-- <td>{{ $payment->payment_date->format('Y-m-d H:i') }}</td> <!-- Format payment date --> --}}
                     <td>{{ $payment->status }}</td>
                 </tr>
             @endforeach
